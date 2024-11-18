@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 #!/usr/bin/env python
 # coding: utf-8
 
 # In[20]:
 
 
+=======
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 # Python ≥3.5 is required
 import sys
 assert sys.version_info >= (3, 5)
@@ -20,29 +24,44 @@ import seaborn as sns
 from scipy import stats
 
 # To plot pretty figures
+<<<<<<< HEAD
 get_ipython().run_line_magic('matplotlib', 'inline')
+=======
+%matplotlib inline
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 mpl.rc('axes', labelsize=14)
 mpl.rc('xtick', labelsize=12)
 mpl.rc('ytick', labelsize=12)
 
+<<<<<<< HEAD
 
 # Implement 1st ML Classifier: Random Forest
 
 # In[21]:
 
 
+=======
+# %% [markdown]
+# Implement 1st ML Classifier: Random Forest
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 import pandas as pd
 
 internet_data = pd.read_csv('preprocessed_internet_data.csv')
 
 internet_data
 
+<<<<<<< HEAD
 
 # In[22]:
 
 
+=======
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
@@ -51,6 +70,7 @@ from sklearn.model_selection import cross_validate
 from sklearn.model_selection import StratifiedKFold
 from sklearn.tree import DecisionTreeClassifier
 
+<<<<<<< HEAD
 
 # In[23]:
 
@@ -62,6 +82,13 @@ y = internet_data['Action']
 # In[24]:
 
 
+=======
+# %%
+X = internet_data.drop('Action', axis=1)  
+y = internet_data['Action']
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 nat_ports = internet_data['NAT Source Port']
 nat_ports
 
@@ -74,6 +101,7 @@ relationship_df = pd.DataFrame({
 
 relationship_df
 
+<<<<<<< HEAD
 
 # In[25]:
 
@@ -94,6 +122,21 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # In[27]:
 
 
+=======
+# %%
+print(y.value_counts())
+
+# %%
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# %% [markdown]
+# 1. Random Forest
+
+# %% [markdown]
+# Let's first assess feature importance so we can figure out which features contribute the most to our model's performance
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 model = RandomForestClassifier(n_estimators=100, random_state=42, max_depth=2)
 
 # Stratified KFold cross-validation
@@ -137,12 +180,19 @@ plt.xlabel('Importance')
 plt.title('Feature Importances in Random Forest (Average across folds)')
 plt.show()
 
+<<<<<<< HEAD
 
 # Interpreting the feature importance graph, we see that the two most important features are NAT Source Port and Elapsed Time. Let's use random forest with a depth of 2 and a singular decision tree with a depth of 2 to test the accuracy of our model using these features. 
 
 # In[28]:
 
 
+=======
+# %% [markdown]
+# Interpreting the feature importance graph, we see that the two most important features are NAT Source Port and Elapsed Time. Let's use random forest with a depth of 2 and a singular decision tree with a depth of 2 to test the accuracy of our model using these features. 
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 tree_model = DecisionTreeClassifier(max_depth=2, random_state=42)
 rf_model = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=42)
 
@@ -189,6 +239,7 @@ axes[1].set_title("Random Forest Confusion Matrix (Last Fold)")
 plt.tight_layout()
 plt.show()
 
+<<<<<<< HEAD
 
 # We see that there is not much of a difference between the accuracy of the single decision tree and random forest. We can consider using one decision tree for this data since it computationally inexpensive, especially with a depth of 2. 
 
@@ -197,6 +248,15 @@ plt.show()
 # In[29]:
 
 
+=======
+# %% [markdown]
+# We see that there is not much of a difference between the accuracy of the single decision tree and random forest. We can consider using one decision tree for this data since it computationally inexpensive, especially with a depth of 2. 
+
+# %% [markdown]
+# 2. K-Nearest Neighbor
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 import matplotlib.pyplot as plt
@@ -234,12 +294,19 @@ plt.xticks(k_range)
 plt.grid(True)
 plt.show()
 
+<<<<<<< HEAD
 
 # The highest accuracy for k looks to be 7, although all the values for k seem to be above 98%. We will stick with k = 7 for this model.
 
 # In[30]:
 
 
+=======
+# %% [markdown]
+# The highest accuracy for k looks to be 7, although all the values for k seem to be above 98%. We will stick with k = 7 for this model.
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 # Initialize KNN model with 7 neighbors
 k_neighbors = 7
 knn_model = KNeighborsClassifier(n_neighbors=k_neighbors)
@@ -270,12 +337,19 @@ ConfusionMatrixDisplay(knn_conf_matrices[-1], display_labels=knn_model.classes_)
 plt.title(f"KNN Confusion Matrix (Last Fold, k={k_neighbors})")
 plt.show()
 
+<<<<<<< HEAD
 
 # 3.  Support Vector Machines
 
 # In[31]:
 
 
+=======
+# %% [markdown]
+# 3.  Support Vector Machines
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 from sklearn.svm import SVC
 
 svm_model = SVC()
@@ -287,11 +361,18 @@ acc_score = accuracy_score(y_test, predictions)
 print(f'SVM accuracy score: {acc_score:.4f}')
 
 
+<<<<<<< HEAD
 # Because we get a high accuracy, we can verify this by doing k-fold cross validation
 
 # In[32]:
 
 
+=======
+# %% [markdown]
+# Because we get a high accuracy, we can verify this by doing k-fold cross validation
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 # Stratified KFold cross-validation
 skf = StratifiedKFold(n_splits=5)
 
@@ -318,12 +399,19 @@ ConfusionMatrixDisplay(svm_conf_matrices[-1], display_labels=svm_model.classes_)
 plt.title(f"SVM Confusion Matrix")
 plt.show()
 
+<<<<<<< HEAD
 
 # Using SVM and what we determined to be the two most important features, we can see that this version model gives up 79% accuracy
 
 # In[33]:
 
 
+=======
+# %% [markdown]
+# Using SVM and what we determined to be the two most important features, we can see that this version model gives up 79% accuracy
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 from sklearn.svm import SVC
 X2 = X[['NAT Source Port', 'Elapsed Time (sec)']] 
 X_train, X_test, y_train, y_test = train_test_split(X2, y, test_size=0.2, random_state=42)
@@ -335,12 +423,19 @@ predictions = svm_model.predict(X_test)
 acc_score = accuracy_score(y_test, predictions)
 print(f'SVM accuracy score: {acc_score:.4f}')
 
+<<<<<<< HEAD
 
 # 4. Linear
 
 # In[34]:
 
 
+=======
+# %% [markdown]
+# 4. Linear
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 from sklearn.linear_model import LinearRegression
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -351,11 +446,18 @@ linear_model.fit(X_train, y_train)
 score = linear_model.score(X_test, y_test)
 print(f'linear model score: {score:.4f}')
 
+<<<<<<< HEAD
 
 # We can use K-fold cross validation to analyze our linear model. Here we see it has a high value for R² showing it explains a good amount of the variance in our data.
 
 # In[35]:
 
+=======
+# %% [markdown]
+# We can use K-fold cross validation to analyze our linear model. Here we see it has a high value for R² showing it explains a good amount of the variance in our data.
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 
 from sklearn.model_selection import KFold
 from sklearn.metrics import mean_squared_error, r2_score
@@ -396,10 +498,14 @@ plt.xlabel("Predicted Values")
 plt.ylabel("Residuals (Actual - Predicted)")
 plt.show()
 
+<<<<<<< HEAD
 
 # In[ ]:
 
 
+=======
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 num_features = len(X.columns)
 num_cols = 3
 num_rows = (num_features + num_cols - 1) // num_cols  # Calculate number of rows to fit all features
@@ -426,12 +532,19 @@ for idx in range(num_features, len(axes)):
 plt.tight_layout()
 plt.show()
 
+<<<<<<< HEAD
 
 # 5. Logistic Regression
 
 # In[ ]:
 
 
+=======
+# %% [markdown]
+# 5. Logistic Regression
+
+# %%
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 from sklearn.decomposition import PCA
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
@@ -463,9 +576,18 @@ Z = Z.reshape(xx.shape)
 plt.figure(figsize=(10, 8))
 plt.contourf(xx, yy, Z, alpha=0.8, cmap=plt.cm.Paired)
 plt.scatter(X_train_pca[:, 0], X_train_pca[:, 1], c=y_train, edgecolors='k', marker='o', cmap=plt.cm.Paired)
+<<<<<<< HEAD
 plt.title('Multinomial Logistic Regression Decision Boundary')
+=======
+plt.title('Logistic Regression')
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
 plt.xlabel('PC1')
 plt.ylabel('PC2')
 plt.colorbar()
 plt.show()
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 0171a8a714cb374f69408ed415b976a597c5ba09
